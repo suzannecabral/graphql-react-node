@@ -1,6 +1,7 @@
 const express = require("express");
-require("dotenv").config;
+require("dotenv").config();
 
+// express server
 const app = express();
 
 // rest endpoint
