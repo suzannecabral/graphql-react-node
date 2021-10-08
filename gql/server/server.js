@@ -25,11 +25,6 @@ const resolvers = {
 // graphql server
 // error: see https://www.udemy.com/course/graphql-react-node/learn/lecture/19712132#questions/15385664
 
-// const apolloServer = new ApolloServer({
-// 	typeDefs,
-// 	resolvers,
-// });
-
 let apolloServer = null;
 async function startServer() {
 	apolloServer = new ApolloServer({
