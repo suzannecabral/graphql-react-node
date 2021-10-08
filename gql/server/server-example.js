@@ -1,45 +1,31 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const http = require("http");
-// const { PORT } = process.env;
 require("dotenv").config();
 
 // express server
 const app = express();
 
-// types: query / mutation / subscription
+// types query / mutation / subscription
 const typeDefs = `
-	type Query {
-		totalPosts: Int!
-}
+    type Query {
+        totalPosts: Int!
+    }
 `;
-
 // resolvers
-
 const resolvers = {
 	Query: {
 		totalPosts: () => 42,
 	},
 };
-
 // graphql server
-// error: see https://www.udemy.com/course/graphql-react-node/learn/lecture/19712132#questions/15385664
+const apolloServer = new ApolloServer({
+	typeDefs,
+	resolvers,
+});
 
-// const apolloServer = new ApolloServer({
-// 	typeDefs,
-// 	resolvers,
-// });
-
-let apolloServer = null;
-async function startServer() {
-	apolloServer = new ApolloServer({
-		typeDefs,
-		resolvers,
-	});
-	await apolloServer.start();
-	apolloServer.applyMiddleware({ app });
-}
-startServer();
+// applyMiddleware method connects ApolloServer to a specific HTTP framework ie: express
+apolloServer.applyMiddleware({ app });
 
 // server
 const httpserver = http.createServer(app);
@@ -47,7 +33,7 @@ const httpserver = http.createServer(app);
 // rest endpoint
 app.get("/rest", function (req, res) {
 	res.json({
-		data: "you hit the rest endpoint, great!",
+		data: "you hit rest endpoint great!",
 	});
 });
 
